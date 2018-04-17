@@ -13,6 +13,7 @@ const UserSchema = new Schema ({
     username: {
         type: String,
         lowercase: true,
+        unique: true,
         required: true
     },
     bio: String,
