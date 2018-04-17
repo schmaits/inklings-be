@@ -100,6 +100,32 @@ const saveQuotes = () => {
     return Promise.all(quotes);
 };
 
+const saveUsers = () => {
+    const users = [
+        {
+            firstName: 'Rebecca',
+            secondName: 'Jenkins',
+            username: 'jenks425',
+            location: 'Kansas, USA',
+            booksRead: [savedData.books[0]._id, savedData.books[2]._id],
+            favouriteQuotes: [savedData.quotes[1]._id]
+        },
+        {
+            firstName: 'Mary',
+            secondName: 'Hunt',
+            username: 'ilikebooks',
+            location: 'Panama',
+            booksRead: [savedData.books[0]._id, savedData.books[1]._id, savedData.books[2]._id],
+            favouriteQuotes: [savedData.quotes[4]._id, savedData.quotes[8]._id]
+        }
+    ].map(user => {
+        user = new Users(user);
+        savedData.users.push(user);
+        user.save();
+    });
+    return Promise.all(users);
+};
+
 mongoose.connect(DB)
     .then(() => {
         console.log(`Successfully connected to ${DB}`);
@@ -117,6 +143,10 @@ mongoose.connect(DB)
     })
     .then(() => {
         console.log(`Saved ${savedData.quotes.length} quotes`);
+        return saveUsers();
+    })
+    .then(() => {
+        console.log(`Saved ${savedData.users.length} users`);
     })
     .catch(err => {
         console.log(err);
