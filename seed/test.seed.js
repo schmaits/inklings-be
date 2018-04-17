@@ -2,6 +2,8 @@ process.env.NODE_ENV = 'test';
 
 const { Books, Quotes, Users, Clubs, Comments } = require('../models/models');
 const mongoose = require('mongoose');
+const Chance = require('chance');
+const chance = new Chance();
 const DB = require('../config').DB[process.env.NODE_ENV];
 
 mongoose.Promise = Promise;
@@ -127,6 +129,24 @@ const saveClubs = () => {
     return Promise.all(clubs);
 };
 
+const createRandomComment = () => {
+    return {
+        user: chance.pickone(savedData.users)._id,
+        body: chance.paragraph({sentences: chance.integer({min: 1, max: 4})}),
+        created_at: chance.date({year: 2017}),
+        book: chance.pickone(savedData.books)._id,
+        club: chance.pickone(savedData.clubs)._id
+    };
+};
+
+const saveComments = () => {
+    let comments = new Array(20).fill({}).map(() => {
+        return createRandomComment();
+    });
+    comments.map(comment => new Comments(comment).save());
+    return Promise.all(comments);
+}
+
 mongoose.connect(DB)
     .then(() => {
         console.log(`Successfully connected to ${DB}`);
@@ -154,6 +174,10 @@ mongoose.connect(DB)
     .then(savedClubs => {
         console.log(`Saved ${savedClubs.length} clubs`);
         savedData.clubs = savedClubs;
+        return saveComments();
+    })
+    .then(savedComments => {
+        console.log(`Saved ${savedComments.length} comments`);
     })
     .catch(err => {
         console.log(err);
