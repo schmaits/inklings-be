@@ -18,7 +18,11 @@ const UserSchema = new Schema ({
     bio: String,
     location: String,
     booksRead: [Schema.Types.ObjectId],
-    favouriteQuotes: [Schema.Types.ObjectId]
+    favouriteQuotes: [Schema.Types.ObjectId],
+    profilePictureUrl: {
+        type: String,
+        lowercase: true
+    }
 });
 
 module.exports = UserSchema;
