@@ -14,4 +14,4 @@ const ClubsSchema = new Schema ({
     read: [Schema.Types.ObjectId]
 });
 
-module.exports = ClubsSchema;
+module.exports = mongoose.model('Clubs', ClubsSchema);

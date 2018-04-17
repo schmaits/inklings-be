@@ -12,4 +12,4 @@ const QuotesSchema = new Schema({
     }
 });
 
-module.exports = QuotesSchema;
+module.exports = mongoose.model('Quotes', QuotesSchema);
