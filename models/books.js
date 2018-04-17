@@ -15,3 +15,5 @@ const BooksSchema = new Schema({
     },
     country: String
 });
+
+module.exports = BooksSchema;
