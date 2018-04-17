@@ -145,40 +145,44 @@ const saveComments = () => {
     });
     comments.map(comment => new Comments(comment).save());
     return Promise.all(comments);
-}
+};
 
-mongoose.connect(DB)
-    .then(() => {
-        console.log(`Successfully connected to ${DB}`);
-        return mongoose.connection.dropDatabase();
-    })
-    .then(() => {
-        console.log('Database dropped');
-        return saveBooks();
-    })
-    .then(savedBooks => {
-        console.log(`Saved ${savedBooks.length} books`);
-        savedData.books = savedBooks;
-        return saveQuotes();
-    })
-    .then(savedQuotes => {
-        console.log(`Saved ${savedQuotes.length} quotes`);
-        savedData.quotes = savedQuotes;
-        return saveUsers();
-    })
-    .then(savedUsers => {
-        console.log(`Saved ${savedUsers.length} users`);
-        savedData.users = savedUsers;
-        return saveClubs();
-    })
-    .then(savedClubs => {
-        console.log(`Saved ${savedClubs.length} clubs`);
-        savedData.clubs = savedClubs;
-        return saveComments();
-    })
-    .then(savedComments => {
-        console.log(`Saved ${savedComments.length} comments`);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+const seedTestDatabase = () => {
+    mongoose.connect(DB)
+        .then(() => {
+            console.log(`Successfully connected to ${DB}`);
+            return mongoose.connection.dropDatabase();
+        })
+        .then(() => {
+            console.log('Database dropped');
+            return saveBooks();
+        })
+        .then(savedBooks => {
+            console.log(`Saved ${savedBooks.length} books`);
+            savedData.books = savedBooks;
+            return saveQuotes();
+        })
+        .then(savedQuotes => {
+            console.log(`Saved ${savedQuotes.length} quotes`);
+            savedData.quotes = savedQuotes;
+            return saveUsers();
+        })
+        .then(savedUsers => {
+            console.log(`Saved ${savedUsers.length} users`);
+            savedData.users = savedUsers;
+            return saveClubs();
+        })
+        .then(savedClubs => {
+            console.log(`Saved ${savedClubs.length} clubs`);
+            savedData.clubs = savedClubs;
+            return saveComments();
+        })
+        .then(savedComments => {
+            console.log(`Saved ${savedComments.length} comments`);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+module.exports = seedTestDatabase;
