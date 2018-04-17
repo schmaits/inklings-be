@@ -6,13 +6,7 @@ const DB = require('../config').DB[process.env.NODE_ENV];
 
 mongoose.Promise = Promise;
 
-const savedData = {
-    books: [],
-    quotes: [],
-    users: [],
-    clubs: [],
-    comments: []
-};
+const savedData = {};
 
 const saveBooks = () => {
     const books = [
@@ -46,11 +40,7 @@ const saveBooks = () => {
             rating: 3,
             country: 'Canada'
         }
-    ].map(book => {
-        book = new Books(book);
-        savedData.books.push(book);
-        book.save();
-    });
+    ].map(book => new Books(book).save());
     return Promise.all(books);
 };
 
@@ -92,11 +82,7 @@ const saveQuotes = () => {
             body: 'She always wanted to believe in things.',
             book: savedData.books[1]._id
         }
-    ].map(quote => {
-        quote = new Quotes(quote);
-        savedData.quotes.push(quote);
-        quote.save();
-    });
+    ].map(quote => new Quotes(quote).save());
     return Promise.all(quotes);
 };
 
@@ -118,12 +104,27 @@ const saveUsers = () => {
             booksRead: [savedData.books[0]._id, savedData.books[1]._id, savedData.books[2]._id],
             favouriteQuotes: [savedData.quotes[4]._id, savedData.quotes[8]._id]
         }
-    ].map(user => {
-        user = new Users(user);
-        savedData.users.push(user);
-        user.save();
-    });
+    ].map(user => new Users(user).save());
     return Promise.all(users);
+};
+
+const saveClubs = () => {
+    let clubs = [
+        {
+            name: 'Great Books',
+            summary: 'Just great books',
+            members: [savedData.users[0]._id, savedData.users[1]._id],
+            currentlyReading: savedData.books[0]._id,
+            read: [savedData.books[1]._id, savedData.books[2]._id]
+        },
+        {
+            name: 'Dystopian',
+            summary: 'Unfortunate worlds',
+            members: [savedData.users[0]._id],
+            currentlyReading: savedData.books[1]._id,
+        }
+    ].map(club => new Clubs(club).save());
+    return Promise.all(clubs);
 };
 
 mongoose.connect(DB)
@@ -133,20 +134,26 @@ mongoose.connect(DB)
     })
     .then(() => {
         console.log('Database dropped');
-    })
-    .then(() => {
         return saveBooks();
     })
-    .then(() => {
-        console.log(`Saved ${savedData.books.length} books`);
+    .then(savedBooks => {
+        console.log(`Saved ${savedBooks.length} books`);
+        savedData.books = savedBooks;
         return saveQuotes();
     })
-    .then(() => {
-        console.log(`Saved ${savedData.quotes.length} quotes`);
+    .then(savedQuotes => {
+        console.log(`Saved ${savedQuotes.length} quotes`);
+        savedData.quotes = savedQuotes;
         return saveUsers();
     })
-    .then(() => {
-        console.log(`Saved ${savedData.users.length} users`);
+    .then(savedUsers => {
+        console.log(`Saved ${savedUsers.length} users`);
+        savedData.users = savedUsers;
+        return saveClubs();
+    })
+    .then(savedClubs => {
+        console.log(`Saved ${savedClubs.length} clubs`);
+        savedData.clubs = savedClubs;
     })
     .catch(err => {
         console.log(err);
