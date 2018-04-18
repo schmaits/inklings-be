@@ -1,4 +1,4 @@
-const { getAllClubs, addNewClub, getOneClub, updateMembersList, updateBooks } = require('../lib/clubs.queries');
+const { getAllClubs, addNewClub, getOneClub, updateMembersList, updateBooks, deleteClub } = require('../lib/clubs.queries');
 
 module.exports = {
     getAllClubs: (req, res) => {
@@ -58,17 +58,17 @@ module.exports = {
             .catch(err => {
                 res.status(500).send(err);
             });
-    }
+    },
 
-    // updateRead: (req, res) => {
-    //     const clubId = req.params.clubId;
-    //     const bookId = req.body.bookId;
-    //     updateRead(clubId, bookId)
-    //         .then(updatedReadList => {
-    //             res.status(200).json({updatedReadList});
-    //         })
-    //         .catch(err => {
-    //             res.status(500).send(err);
-    //         });
-    // }
+    deleteClub: (req, res) => {
+        const clubId = req.params.clubId;
+        const userId = req.body.userId;
+        deleteClub(clubId, userId)
+            .then(deleteConfirmation => {
+                res.status(200).json({deleteConfirmation});
+            })
+            .catch(err => {
+                res.status(500).send(err);
+            });
+    }
 };
