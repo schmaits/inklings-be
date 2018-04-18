@@ -40,7 +40,8 @@ describe('API endpoints', () => {
             request(app)
                 .post('/api/clubs')
                 .send({
-                    name: 'test club'
+                    name: 'test club',
+                    admin: savedData.users[1]._id
                 })
                 .end((err, res) => {
                     if (err) throw err;
@@ -136,6 +137,19 @@ describe('API endpoints', () => {
                     if (err) throw err;
                     expect(res.body.updatedBooks.length).to.equal(savedData.clubs[1].read.length + 1);
                     expect(res.status).to.equal(200);
+                    done();
+                });
+        });
+    });
+
+    describe('DELETE /api/clubs/:clubId', () => {
+        it('should delete a club, if the user requesting is the admin of the club', (done) => {
+            request(app)
+                .delete(`/api/clubs/${savedData.clubs[0]._id}`)
+                .send({ userId: savedData.users[0]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.body.deleteConfirmation).to.eql({ n: 1, ok: 1 });
                     done();
                 });
         });
