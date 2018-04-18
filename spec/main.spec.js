@@ -153,6 +153,17 @@ describe('API endpoints', () => {
                     done();
                 });
         });
+
+        it('shouldn\'t delete a club, if the user requesting is not the admin of the club', (done) => {
+            request(app)
+                .delete(`/api/clubs/${savedData.clubs[0]._id}`)
+                .send({ userId: savedData.users[1]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.body.deleteConfirmation).to.eql({ n: 0, ok: 1 });
+                    done();
+                });
+        });
     });
 });
 
