@@ -115,7 +115,7 @@ const saveClubs = () => {
         {
             name: 'Great Books',
             summary: 'Just great books',
-            members: [savedData.users[0]._id, savedData.users[1]._id],
+            members: [savedData.users[0]._id],
             currentlyReading: savedData.books[0]._id,
             read: [savedData.books[1]._id, savedData.books[2]._id]
         },
