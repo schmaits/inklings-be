@@ -1,4 +1,4 @@
-const { getAllClubs, addNewClub, getOneClub, updateMembersList } = require('../lib/clubs.queries');
+const { getAllClubs, addNewClub, getOneClub, updateMembersList, updateCurrentlyReading } = require('../lib/clubs.queries');
 
 module.exports = {
     getAllClubs: (req, res) => {
@@ -44,6 +44,18 @@ module.exports = {
             })
             .catch(err => {
                 res.status(400).send(err);
+            });
+    },
+
+    updateCurrentlyReading: (req, res) => {
+        const clubId = req.params.clubId;
+        const bookId = req.body.bookId;
+        updateCurrentlyReading(clubId, bookId)
+            .then(updatedCurrentlyReading => {
+                res.status(200).json({updatedCurrentlyReading});
+            })
+            .catch(err => {
+                res.status(500).send(err);
             });
     }
 };
