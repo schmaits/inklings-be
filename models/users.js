@@ -18,6 +18,8 @@ const UserSchema = new Schema ({
     },
     bio: String,
     location: String,
+    currentlyReading: Schema.Types.ObjectId,
+    toRead: [Schema.Types.ObjectId],
     booksRead: [Schema.Types.ObjectId],
     favouriteQuotes: [Schema.Types.ObjectId],
     profilePictureUrl: {

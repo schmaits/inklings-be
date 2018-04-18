@@ -117,13 +117,15 @@ const saveClubs = () => {
             summary: 'Just great books',
             members: [savedData.users[0]._id],
             currentlyReading: savedData.books[0]._id,
-            read: [savedData.books[1]._id, savedData.books[2]._id]
+            read: [savedData.books[1]._id, savedData.books[2]._id],
+            admin: savedData.users[0]._id
         },
         {
             name: 'Dystopian',
             summary: 'Unfortunate worlds',
             members: [savedData.users[0]._id],
             currentlyReading: savedData.books[1]._id,
+            admin: savedData.users[0]._id
         }
     ].map(club => new Clubs(club).save());
     return Promise.all(clubs);
@@ -186,5 +188,6 @@ const seedTestDatabase = () => {
             console.log(err);
         });
 };
+seedTestDatabase();
 
 module.exports = seedTestDatabase;
