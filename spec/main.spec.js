@@ -72,7 +72,7 @@ describe('API endpoints', () => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
                     expect(res.body.club.name).to.equal(savedData.clubs[0].name);
-                    done()
+                    done();
                 });       
         });
 
@@ -82,6 +82,20 @@ describe('API endpoints', () => {
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(404);
+                    done();
+                });
+        });
+    });
+
+    describe('PUT /api/clubs/:clubId/users', () => {
+        it('should be able to add a member to a club', (done) => {
+            request(app)
+                .put(`/api/clubs/${savedData.clubs[1]._id}/users?update=add`)
+                .send({ userId: savedData.users[1]._id })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedMemberList.length).to.equal(savedData.clubs[1].members.length + 1);
                     done();
                 });
         });
