@@ -1,4 +1,4 @@
-const { getAllClubs } = require('../lib/clubs.queries');
+const { getAllClubs, addNewClub } = require('../lib/clubs.queries');
 
 module.exports = {
     getAllClubs: (req, res) => {
@@ -8,6 +8,17 @@ module.exports = {
             })
             .catch(err => {
                 return res.status(500).send(err);
+            });
+    },
+
+    addNewClub: (req, res) => {
+        let clubToBeAdded = req.body;
+        addNewClub(clubToBeAdded)
+            .then(newClub => {
+                res.status(201).json({newClub});
+            })
+            .catch(err => {
+                return res.status(400).send(err);
             });
     }
 };
