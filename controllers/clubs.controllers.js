@@ -1,4 +1,4 @@
-const { getAllClubs, addNewClub } = require('../lib/clubs.queries');
+const { getAllClubs, addNewClub, getOneClub } = require('../lib/clubs.queries');
 
 module.exports = {
     getAllClubs: (req, res) => {
@@ -7,7 +7,7 @@ module.exports = {
                 res.status(200).json({allClubs});
             })
             .catch(err => {
-                return res.status(500).send(err);
+                res.status(500).send(err);
             });
     },
 
@@ -18,7 +18,18 @@ module.exports = {
                 res.status(201).json({newClub});
             })
             .catch(err => {
-                return res.status(400).send(err);
+                res.status(400).send(err);
+            });
+    },
+    
+    getOneClub: (req, res) => {
+        let clubId = req.params.clubId;
+        getOneClub(clubId)
+            .then(club => {
+                res.status(200).json({club});
+            })
+            .catch(err => {
+                res.status(404).send(err);
             });
     }
 };
