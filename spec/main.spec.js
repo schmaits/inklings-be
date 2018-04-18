@@ -75,6 +75,16 @@ describe('API endpoints', () => {
                     done()
                 });       
         });
+
+        it('should return a 404 status if an invalid id is passed', (done) => {
+            request(app)
+                .get('/api/clubs/5ad72e653e05e33c0541cf83')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(404);
+                    done();
+                });
+        });
     });
 });
 
