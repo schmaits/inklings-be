@@ -20,7 +20,6 @@ describe('API endpoints', () => {
     });
     
     describe('GET /api/clubs', () => {
-
         it('should return an array of all clubs', (done) => {
             request(app)
                 .get('/api/clubs')
@@ -44,6 +43,19 @@ describe('API endpoints', () => {
                     if (err) throw err;
                     expect(res.status).to.equal(201);
                     expect(res.body.newClub).to.have.property('_id');
+                    done();
+                });
+        });
+
+        it('shouldn\'t work if the correct data is not provided', (done) => {
+            request(app)
+                .post('/api/clubs')
+                .send({
+                    title: 'test-should-fail'
+                })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(400);
                     done();
                 });
         });
