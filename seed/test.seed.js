@@ -148,7 +148,7 @@ const saveComments = () => {
 };
 
 const seedTestDatabase = () => {
-    mongoose.connect(DB)
+    return mongoose.connect(DB)
         .then(() => {
             console.log(`Successfully connected to ${DB}`);
             return mongoose.connection.dropDatabase();
@@ -179,6 +179,8 @@ const seedTestDatabase = () => {
         })
         .then(savedComments => {
             console.log(`Saved ${savedComments.length} comments`);
+            savedData.comments = savedComments;
+            return savedData;
         })
         .catch(err => {
             console.log(err);
