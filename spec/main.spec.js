@@ -112,5 +112,19 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('PUT /api/clubs/:clubId/currentBook', () => {
+        it('should be able to update the current book', (done) => {
+            request(app)
+                .put(`/api/clubs/${savedData.clubs[1]._id}/currentlyReading`)
+                .send({ bookId: savedData.books[2]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedCurrentlyReading).to.equal(savedData.books[2]._id.toString());
+                    done();
+                });
+        });
+    })
 });
 
