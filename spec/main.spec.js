@@ -7,9 +7,12 @@ const app = require('../server');
 const seedTestDatabase = require('../seed/test.seed');
 
 describe('API endpoints', () => {    
+    let savedData;
+
     beforeEach((done) => {
         seedTestDatabase()
-            .then(() => {
+            .then(seededData => {
+                savedData = seededData;
                 done();
             });
     });
@@ -58,6 +61,19 @@ describe('API endpoints', () => {
                     expect(res.status).to.equal(400);
                     done();
                 });
+        });
+    });
+
+    describe('GET /api/clubs/:clubId', () => {
+        it('should return an object with the data from the specified club', (done) => {
+            request(app)
+                .get(`/api/clubs/${savedData.clubs[0]._id}`)
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.club.name).to.equal(savedData.clubs[0].name);
+                    done()
+                });       
         });
     });
 });
