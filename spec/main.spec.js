@@ -99,6 +99,18 @@ describe('API endpoints', () => {
                     done();
                 });
         });
+
+        it('should be able to remove a member of a club', (done) => {
+            request(app)
+                .put(`/api/clubs/${savedData.clubs[1]._id}/users?update=remove`)
+                .send({ userId: savedData.users[0]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedMemberList.length).to.equal(savedData.clubs[1].members.length - 1);
+                    done();
+                });
+        });
     });
 });
 
