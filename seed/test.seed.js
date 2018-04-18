@@ -188,6 +188,5 @@ const seedTestDatabase = () => {
             console.log(err);
         });
 };
-seedTestDatabase();
 
 module.exports = seedTestDatabase;
