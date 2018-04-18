@@ -1,5 +1,5 @@
 const clubsRouter = require('express').Router();
-const { getAllClubs, addNewClub, getOneClub, updateMembersList, updateBooks } = require('../controllers/clubs.controllers');
+const { getAllClubs, addNewClub, getOneClub, updateMembersList, updateBooks, deleteClub } = require('../controllers/clubs.controllers');
 
 clubsRouter.get('/', getAllClubs);
 
@@ -10,5 +10,7 @@ clubsRouter.post('/', addNewClub);
 clubsRouter.put('/:clubId/users', updateMembersList);
 
 clubsRouter.put('/:clubId/:updateField', updateBooks);
+
+clubsRouter.delete('/:clubId', deleteClub)
 
 module.exports = clubsRouter;
