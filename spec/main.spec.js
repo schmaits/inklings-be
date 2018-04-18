@@ -121,7 +121,7 @@ describe('API endpoints', () => {
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
-                    expect(res.body.updatedCurrentlyReading).to.equal(savedData.books[2]._id.toString());
+                    expect(res.body.updatedBooks).to.equal(savedData.books[2]._id.toString());
                     done();
                 });
         });
@@ -134,7 +134,7 @@ describe('API endpoints', () => {
                 .send({ bookId: savedData.books[0]._id})
                 .end((err, res) => {
                     if (err) throw err;
-                    expect(res.body.updatedReadList.length).to.equal(savedData.clubs[1].read.length + 1);
+                    expect(res.body.updatedBooks.length).to.equal(savedData.clubs[1].read.length + 1);
                     expect(res.status).to.equal(200);
                     done();
                 });
