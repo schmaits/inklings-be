@@ -113,7 +113,7 @@ describe('API endpoints', () => {
         });
     });
 
-    describe('PUT /api/clubs/:clubId/currentBook', () => {
+    describe('PUT /api/clubs/:clubId/currentlyReading', () => {
         it('should be able to update the current book', (done) => {
             request(app)
                 .put(`/api/clubs/${savedData.clubs[1]._id}/currentlyReading`)
@@ -125,6 +125,20 @@ describe('API endpoints', () => {
                     done();
                 });
         });
-    })
+    });
+
+    describe('PUT /api/clubs/:clubId/read', () => {
+        it('should be able to add a book to read', (done) => {
+            request(app)
+                .put(`/api/clubs/${savedData.clubs[1]._id}/read`)
+                .send({ bookId: savedData.books[0]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.body.updatedReadList.length).to.equal(savedData.clubs[1].read.length + 1);
+                    expect(res.status).to.equal(200);
+                    done();
+                });
+        });
+    });
 });
 
