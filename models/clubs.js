@@ -10,6 +10,10 @@ const ClubsSchema = new Schema ({
         type: String
     },
     members: [Schema.Types.ObjectId],
+    admin: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
     currentlyReading: Schema.Types.ObjectId,
     read: [Schema.Types.ObjectId]
 });
