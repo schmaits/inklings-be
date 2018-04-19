@@ -178,5 +178,18 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/books/:bookId', () => {
+        it('should return information for one book', (done) => {
+            request(app)
+                .get(`/api/books/${savedData.books[0]._id}`)
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.book.name).to.equal(savedData.books[0].name);
+                    done();
+                });
+        });
+    });
 });
 
