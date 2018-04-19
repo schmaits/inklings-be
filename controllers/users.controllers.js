@@ -1,4 +1,4 @@
-const { getOneUser, getAllUsers, updateCurrentlyReading } = require('../lib/users.queries');
+const { getOneUser, getAllUsers, updateCurrentlyReading, updateToRead } = require('../lib/users.queries');
 
 module.exports = {
     getAllUsers: (req, res) => {
@@ -32,5 +32,17 @@ module.exports = {
             .catch(err => {
                 res.status(500).send(err);
             });
-    }
+    },
+
+    updateToRead: (req, res) => {
+        const userId = req.params.userId;
+        const bookId = req.body.bookId;
+        updateToRead(userId, bookId)
+            .then(updatedToRead => {
+                res.status(200).json({updatedToRead});
+            })
+            .catch(err => {
+                res.status(500).send(err);
+            });
+    },
 };

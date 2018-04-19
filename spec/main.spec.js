@@ -263,5 +263,21 @@ describe('API endpoints', () => {
                 });
         });
     });
+    
+    describe('PUT /api/users/:userId/toRead', () => {
+        it('should be able to add a book to the reading list', (done) => {
+            let toReadLength;
+            savedData.books[1].toRead ? toReadLength = savedData.books[1].toRead.length : toReadLength = 1;
+            request(app)
+                .put(`/api/users/${savedData.users[0]._id}/toRead`)
+                .send({ bookId: savedData.books[1]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedToRead.length).to.equal(toReadLength);
+                    done();
+                });
+        });
+    });
 });
 
