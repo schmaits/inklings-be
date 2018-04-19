@@ -18,6 +18,7 @@ module.exports = {
                 res.status(200).json({book});
             })
             .catch(err => {
+                if (err.message === 'That ID could not be found') res.status(404).send(err);
                 res.status(500).send(err);
             });
     }
