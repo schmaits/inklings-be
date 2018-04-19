@@ -186,7 +186,17 @@ describe('API endpoints', () => {
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
-                    expect(res.body.book.name).to.equal(savedData.books[0].name);
+                    expect(res.body.book[0].name).to.equal(savedData.books[0].name);
+                    done();
+                });
+        });
+
+        it('should return an appropriate error if an invalid ID is passed', (done) => {
+            request(app)
+                .get('/api/books/5ad47287df24c36b3bec9d2f')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(404);
                     done();
                 });
         });
