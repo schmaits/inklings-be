@@ -224,6 +224,19 @@ describe('API endpoints', () => {
         });
     });
 
+    describe('GET /api/users', () => {
+        it('returns all users', (done) => {
+            request(app)
+                .get('/api/users')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.allUsers.length).to.equal(2);
+                    done();
+                });
+        });
+    });
+
     describe('GET /api/users/:userId', () => {
         it('returns information about a specific user', (done) => {
             request(app)
@@ -236,5 +249,6 @@ describe('API endpoints', () => {
                 });
         });
     });
+
 });
 
