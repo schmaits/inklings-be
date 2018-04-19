@@ -165,5 +165,18 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/books', () => {
+        it('should return an array of all books', (done) => {
+            request(app)
+                .get('/api/books')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.body.allBooks.length).to.equal(3);
+                    expect(res.status).to.equal(200);
+                    done();
+                });
+        });
+    });
 });
 
