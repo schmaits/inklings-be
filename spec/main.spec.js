@@ -223,5 +223,18 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/users/:userId', () => {
+        it('returns information about a specific user', (done) => {
+            request(app)
+                .get(`/api/users/${savedData.users[0]._id}`)
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.user.name).to.equal(savedData.users[0].name);
+                    done();
+                });
+        });
+    });
 });
 
