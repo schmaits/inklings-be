@@ -122,7 +122,7 @@ describe('API endpoints', () => {
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
-                    expect(res.body.updatedBooks).to.equal(savedData.books[2]._id.toString());
+                    expect(res.body.updatedCurrentlyReading).to.equal(savedData.books[2]._id.toString());
                     done();
                 });
         });
@@ -131,11 +131,11 @@ describe('API endpoints', () => {
     describe('PUT /api/clubs/:clubId/read', () => {
         it('should be able to add a book to read', (done) => {
             request(app)
-                .put(`/api/clubs/${savedData.clubs[1]._id}/read`)
+                .put(`/api/clubs/${savedData.clubs[0]._id}/read`)
                 .send({ bookId: savedData.books[0]._id})
                 .end((err, res) => {
                     if (err) throw err;
-                    expect(res.body.updatedBooks.length).to.equal(savedData.clubs[1].read.length + 1);
+                    expect(res.body.updatedReadList.length).to.equal(savedData.clubs[0].read.length + 1);
                     expect(res.status).to.equal(200);
                     done();
                 });
@@ -250,5 +250,18 @@ describe('API endpoints', () => {
         });
     });
 
+    // describe('PUT /api/users/:userId/currentlyReading', () => {
+    //     it('should be able to change the currently reading book', (done) => {
+    //         request(app)
+    //             .put(`/api/users/${savedData.users[0]._id}/currentlyReading`)
+    //             .send({ bookId: savedData.books[1]._id})
+    //             .end((err, res) => {
+    //                 if (err) throw err;
+    //                 expect(res.status).to.equal(200);
+    //                 expect(res.body.updatedBooks.name).to.equal(savedData.books[1].name);
+    //                 done();
+    //             });
+    //     });
+    // });
 });
 
