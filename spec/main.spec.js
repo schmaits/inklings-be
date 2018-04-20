@@ -334,5 +334,21 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('DELETE /api/comment/:commentId', () => {
+        it('should delete a comment if it was posted by the specified user', (done) => {
+            request(app)
+                .delete(`/api/comments/${savedData.comments[0]._id}`)
+                .send({
+                    userId: savedData.comments[0].user
+                })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.deleteConfirmation).to.eql({ n: 1, ok: 1 });
+                    done();
+                });
+        });
+    });
 });
 
