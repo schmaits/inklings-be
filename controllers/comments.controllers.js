@@ -1,4 +1,4 @@
-const { getBookComments, getClubComments, addNewComment } = require('../lib/comments.queries');
+const { getBookComments, getClubComments, addNewComment, deleteComment } = require('../lib/comments.queries');
 
 module.exports = {
     getBookComments: (req, res) => {
@@ -30,6 +30,18 @@ module.exports = {
         addNewComment(commentToBeAdded)
             .then(newComment => {
                 res.status(201).json({newComment});
+            })
+            .catch(err => {
+                res.status(500).send(err);
+            });
+    },
+
+    deleteComment: (req, res) => {
+        const commentId = req.params.commentId;
+        const userId = req.body.userId;
+        deleteComment(commentId, userId)
+            .then(deleteConfirmation => {
+                res.status(200).json({deleteConfirmation});
             })
             .catch(err => {
                 res.status(500).send(err);
