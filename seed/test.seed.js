@@ -145,8 +145,7 @@ const saveComments = () => {
             book: savedData.books[1]._id,
             club: savedData.clubs[1]._id
         }
-    ];
-    comments.map(comment => new Comments(comment).save());
+    ].map(comment => new Comments(comment).save());
     return Promise.all(comments);
 };
 
