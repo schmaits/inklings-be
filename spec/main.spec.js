@@ -380,5 +380,19 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('POST /api/quotes/books/:bookId', () => {
+        it('should add a new quote', (done) => {
+            request(app)
+                .post(`/api/quotes/books/${savedData.books[0]._id}`)
+                .send({ body: 'This is a new quote' })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(201);
+                    expect(res.body.newQuote.body).to.equal('This is a new quote');
+                    done();
+                });
+        });
+    });
 });
 
