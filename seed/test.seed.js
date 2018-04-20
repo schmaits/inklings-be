@@ -131,20 +131,21 @@ const saveClubs = () => {
     return Promise.all(clubs);
 };
 
-const createRandomComment = () => {
-    return {
-        user: chance.pickone(savedData.users)._id,
-        body: chance.paragraph({sentences: chance.integer({min: 1, max: 4})}),
-        created_at: chance.date({year: 2017}),
-        book: chance.pickone(savedData.books)._id,
-        club: chance.pickone(savedData.clubs)._id
-    };
-};
-
 const saveComments = () => {
-    let comments = new Array(20).fill({}).map(() => {
-        return createRandomComment();
-    });
+    let comments = [
+        {
+            body: 'This is a comment',
+            user: savedData.users[1]._id,
+            book: savedData.books[1]._id,
+            club: savedData.clubs[1]._id
+        },
+        {
+            body: 'This is another comment',
+            user: savedData.users[0]._id,
+            book: savedData.books[1]._id,
+            club: savedData.clubs[1]._id
+        }
+    ];
     comments.map(comment => new Comments(comment).save());
     return Promise.all(comments);
 };
