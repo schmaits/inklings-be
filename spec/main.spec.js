@@ -209,7 +209,6 @@ describe('API endpoints', () => {
                 .send({
                     title: 'Flowers for Algernon',
                     author: 'Daniel Keyes',
-                    summary: 'The classic novel about a daring experiment in human intelligence. Charlie Gordon, IQ 68, is a floor sweeper and the gentle butt of everyone\'s jokes - until an experiment in the enhancement of human intelligence turns him into a genius. But then Algernon, the mouse whose triumphal experimental tranformation preceded his, fades and dies, and Charlie has to face the possibility that his salvation was only temporary.',
                     year: 1959,
                     coverImageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/ea/FlowersForAlgernon.jpg',
                     genres: ['fiction', 'science fiction'],
