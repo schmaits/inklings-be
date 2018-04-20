@@ -38,6 +38,24 @@ const saveQuotes = () => {
     return Promise.all(quotes);
 };
 
+const saveUsers = () => {
+    const users = new Array(30).fill({}).map(user => {
+        return {
+            firstName: faker.name.firstName(),
+            secondName: faker.name.lastName(),
+            username: faker.internet.userName(),
+            bio: faker.lorem.paragraph(3),
+            location: `${faker.address.city()}, ${faker.address.country()}`,
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            toRead: faker.random.arrayElement(savedData.books)._id,
+            booksRead: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            favouriteQuotes: [faker.random.arrayElement(savedData.quotes)._id, faker.random.arrayElement(savedData.quotes)._id],
+            profilePictureUrl: faker.image.avatar().toLowerCase()
+        };
+    }).map(user => new Users(user).save());
+    return Promise.all(users);
+};
+
 mongoose.connect(DB)
     .then(() => {
         console.log(`Connected to ${DB}`);
@@ -55,6 +73,11 @@ mongoose.connect(DB)
     .then(savedQuotes => {
         console.log(`Saved ${savedQuotes.length} quotes`);
         savedData.quotes = savedQuotes;
+        return saveUsers();
+    })
+    .then(savedUsers => {
+        console.log(`Saved ${savedUsers.length} users`);
+        savedData.users = savedUsers;
     })
     .catch(err => {
         console.log(err);
