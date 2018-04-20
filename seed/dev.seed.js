@@ -39,7 +39,7 @@ const saveQuotes = () => {
 };
 
 const saveUsers = () => {
-    const users = new Array(30).fill({}).map(user => {
+    const users = new Array(60).fill({}).map(() => {
         return {
             firstName: faker.name.firstName(),
             secondName: faker.name.lastName(),
@@ -54,6 +54,84 @@ const saveUsers = () => {
         };
     }).map(user => new Users(user).save());
     return Promise.all(users);
+};
+
+const saveClubs = () => {
+    const clubs = [
+        {
+            name: 'Classics',
+            summary: faker.lorem.paragraph(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Russian Literature',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Poetry',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Plays',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Tragedies',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Feminist',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Depressing',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Hopeful',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Dystopian',
+            summary: faker.lorem.sentence(2),
+            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+    ].map(club => new Clubs(club).save());
+    return Promise.all(clubs);
 };
 
 mongoose.connect(DB)
@@ -78,6 +156,11 @@ mongoose.connect(DB)
     .then(savedUsers => {
         console.log(`Saved ${savedUsers.length} users`);
         savedData.users = savedUsers;
+        return saveClubs();
+    })
+    .then(savedClubs => {
+        console.log(`Saved ${savedClubs.length} clubs`);
+        savedData.clubs = savedClubs;
     })
     .catch(err => {
         console.log(err);
