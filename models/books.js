@@ -10,10 +10,6 @@ const BooksSchema = new Schema({
         type: String,
         required: true
     },
-    summary: {
-        type: String,
-        required: true
-    },
     year: {
         type: Number,
         required: true
