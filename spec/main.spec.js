@@ -367,5 +367,18 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/quotes', () => {
+        it('should get an array of all quotes', (done) => {
+            request(app)
+                .get('/api/quotes')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.allQuotes.length).to.equal(9);
+                    done();
+                });
+        });
+    });
 });
 
