@@ -1,4 +1,4 @@
-const { getBookComments, getClubComments } = require('../lib/comments.queries');
+const { getBookComments, getClubComments, addNewComment } = require('../lib/comments.queries');
 
 module.exports = {
     getBookComments: (req, res) => {
@@ -20,6 +20,19 @@ module.exports = {
             })
             .catch(err => {
                 res.status(404).send(err);
+            });
+    },
+
+    addNewComment: (req, res) => {
+        const commentToBeAdded = req.body;
+        commentToBeAdded.club = req.params.clubId;
+        commentToBeAdded.book = req.params.clubId;
+        addNewComment(commentToBeAdded)
+            .then(newComment => {
+                res.status(201).json({newComment});
+            })
+            .catch(err => {
+                res.status(500).send(err);
             });
     }
 };
