@@ -291,5 +291,18 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/comments/books/:bookId', () => {
+        it('should return an array of all comments for a book', (done) => {
+            request(app)
+                .get(`/api/comments/books/${savedData.books[1]._id}`)
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.bookComments.length).to.equal(2);
+                    done();
+                });
+        });
+    });
 });
 
