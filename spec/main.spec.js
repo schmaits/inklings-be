@@ -304,5 +304,35 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('GET /api/comments/clubs/:clubId', () => {
+        it('should return an array of all comments for a club', (done) => {
+            request(app)
+                .get(`/api/comments/clubs/${savedData.clubs[1]._id}`)
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.clubComments.length).to.equal(2);
+                    done();
+                });
+        });
+    });
+
+    describe('POST /api/comments/clubs/:clubId/books/:bookId', () => {
+        it('should add a new comment', (done) => {
+            request(app)
+                .post(`/api/comments/clubs/${savedData.clubs[0]._id}/books/${savedData.books[0]._id}`)
+                .send({
+                    body: 'This is a comment I\'m adding',
+                    user: savedData.users[0]._id
+                })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(201);
+                    expect(res.body.newComment).to.have.property('_id');
+                    done();
+                });
+        });
+    });
 });
 
