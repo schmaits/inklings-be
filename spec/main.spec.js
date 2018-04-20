@@ -350,5 +350,22 @@ describe('API endpoints', () => {
                 });
         });
     });
+
+    describe('PUT /api/comments/:commentId', () => {
+        it('should allow editing of a comments body if they wrote that comment', (done) => {
+            request(app)
+                .put(`/api/comments/${savedData.comments[0]._id}`)
+                .send({
+                    updatedBody: 'This is an amended comment',
+                    user: savedData.comments[0].user
+                })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedComment.body).to.equal('This is an amended comment');
+                    done();
+                });
+        });
+    });
 });
 
