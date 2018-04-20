@@ -2,7 +2,6 @@ process.env.NODE_ENV = 'test';
 
 const { Books, Quotes, Users, Clubs, Comments } = require('../models/models');
 const mongoose = require('mongoose');
-const Chance = require('chance');
 const DB = require('../config').DB[process.env.NODE_ENV];
 
 mongoose.Promise = Promise;
