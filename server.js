@@ -25,4 +25,14 @@ app.use(bodyParser.json());
 
 app.use('/api', apiRouter);
 
+app.use((err, req, res, next) => {
+  if (err.status === 404) return res.status(404).send({ status: err.status, msg: err.msg });
+  if (err.status === 400) return res.status(400).send({ status: err.status, msg: err.msg });
+  next();
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ msg: 'Something went wrong', err });
+});
+
 module.exports = app;
