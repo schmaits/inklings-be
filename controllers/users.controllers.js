@@ -46,7 +46,7 @@ module.exports = {
             });
     },
 
-    updateBooksRead: (req, res) => {
+    updateBooksRead: (req, res, next) => {
         const userId = req.params.userId;
         const bookId = req.body.bookId;
         updateBooksRead(userId, bookId)
@@ -54,7 +54,7 @@ module.exports = {
                 res.status(200).json({updatedBooksRead});
             })
             .catch(err => {
-                res.status(500).send(err);
+                next();
             });
     }
 };
