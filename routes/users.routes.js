@@ -9,6 +9,6 @@ usersRouter.put('/:userId/currentlyReading', updateCurrentlyReading);
 
 usersRouter.put('/:userId/ToRead', updateToRead);
 
-usersRouter.put('/:userId/booksRead', updateBooksRead)
+usersRouter.put('/:userId/booksRead', updateBooksRead);
 
 module.exports = usersRouter;

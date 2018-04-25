@@ -2,6 +2,7 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const db = require('./config').DB[process.env.NODE_ENV];
@@ -18,8 +19,20 @@ mongoose.connect(db)
     console.log('connection failed', err)
   );
 
+app.use(cors());
+
 app.use(bodyParser.json());
 
 app.use('/api', apiRouter);
+
+app.use((err, req, res, next) => {
+  if (err.status === 404) return res.status(404).send({ status: err.status, msg: err.msg });
+  if (err.status === 400) return res.status(400).send({ status: err.status, msg: err.msg });
+  next();
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ msg: 'Something went wrong', err });
+});
 
 module.exports = app;

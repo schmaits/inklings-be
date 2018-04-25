@@ -22,14 +22,15 @@ module.exports = {
             });
     },
     
-    getOneClub: (req, res) => {
+    getOneClub: (req, res, next) => {
         let clubId = req.params.clubId;
         getOneClub(clubId)
             .then(club => {
+                if (!club) next({ status: 404, msg: `No club with ID ${clubId}`});
                 res.status(200).json({club});
             })
             .catch(err => {
-                if (err.message === 'That ID does not exist') res.status(404).send(err);
+                if (err.name === 'CastError') return next({ status: 400, msg: 'Invalid ID format' });
                 res.status(500).send(err);
             });
     },
