@@ -32,7 +32,6 @@ describe('API endpoints', () => {
                     done();
                 });
         });
-
     });
 
     describe('POST /api/clubs', () => {
@@ -83,6 +82,16 @@ describe('API endpoints', () => {
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(404);
+                    done();
+                });
+        });
+       
+        it('should return a 400 status if an id of invalid format is passed', (done) => {
+            request(app)
+                .get('/api/clubs/3lj6h45i6h')
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(400);
                     done();
                 });
         });
