@@ -3,7 +3,7 @@ const { getOneUser, getAllUsers, updateCurrentlyReading, updateToRead, updateBoo
 
 usersRouter.get('/', getAllUsers);
 
-usersRouter.get('/:usersId', getOneUser);
+usersRouter.get('/:userId', getOneUser);
 
 usersRouter.put('/:userId/currentlyReading', updateCurrentlyReading);
 
