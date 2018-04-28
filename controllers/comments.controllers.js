@@ -26,12 +26,17 @@ module.exports = {
     addNewComment: (req, res) => {
         const commentToBeAdded = req.body;
         commentToBeAdded.club = req.params.clubId;
-        commentToBeAdded.book = req.params.clubId;
+        commentToBeAdded.book = req.params.bookId;
+
+            console.log(commentToBeAdded)
+
         addNewComment(commentToBeAdded)
             .then(newComment => {
+                console.log('new comment', newComment)
                 res.status(201).json({newComment});
             })
             .catch(err => {
+                console.log('err', err)
                 res.status(500).send(err);
             });
     },
