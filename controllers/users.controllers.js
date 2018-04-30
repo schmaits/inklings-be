@@ -37,7 +37,9 @@ module.exports = {
     updateToRead: (req, res) => {
         const userId = req.params.userId;
         const bookId = req.body.bookId;
-        updateToRead(userId, bookId)
+        const query = req.query.update;
+        
+        updateToRead(userId, bookId, query)
             .then(updatedToRead => {
                 res.status(200).json({updatedToRead});
             })
