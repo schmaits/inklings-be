@@ -91,7 +91,8 @@ const saveUsers = () => {
             username: 'jenks425',
             location: 'Kansas, USA',
             booksRead: [savedData.books[0]._id, savedData.books[2]._id],
-            favouriteQuotes: [savedData.quotes[1]._id]
+            favouriteQuotes: [savedData.quotes[1]._id],
+            toRead: [savedData.books[1]._id]
         },
         {
             firstName: 'Mary',

@@ -39,7 +39,7 @@ const saveQuotes = () => {
 };
 
 const saveUsers = () => {
-    const users = new Array(60).fill({}).map(() => {
+    const users = new Array(100).fill({}).map(() => {
         return {
             firstName: faker.name.firstName(),
             secondName: faker.name.lastName(),
@@ -59,75 +59,243 @@ const saveUsers = () => {
 const saveClubs = () => {
     const clubs = [
         {
-            name: 'Classics',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Cool Story, Bro',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Russian Literature',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Readers of Russian Literature',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Poetry',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Poetry Peeps',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Plays',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Theatre Geeks',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Tragedies',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Greek Tragedies',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Feminist',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Feminists',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Depressing',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Pessimists',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Hopeful',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Optimists',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
         {
-            name: 'Dystopian',
-            summary: faker.lorem.paragraph(2),
-            members: [faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id, faker.random.arrayElement(savedData.users)._id],
+            name: 'Dystopian Worlds Club',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
-            read: [faker.random.arrayElement(savedData.books)._id, faker.random.arrayElement(savedData.books)._id],
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'The Book Worms',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'The Bloomsbury Group',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Sentences & Sensibility',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Break the Spine',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Papercuts Anonymous',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Just One More Chapter… ',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Where My Prose At?',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Clueless Mysteries Book Club',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'Perfictionists',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'We Like Big Books and We Cannot Lie',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            admin: faker.random.arrayElement(savedData.users)._id
+        },
+        {
+            name: 'The Great Fratsby',
+            summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
+            members: new Array(faker.random.number({min:3, max:15})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
+            currentlyReading: faker.random.arrayElement(savedData.books)._id,
+            read: new Array(faker.random.number({min:1, max:6})).fill('').map(() => {
+                return faker.random.arrayElement(savedData.users)._id;
+            }),
             admin: faker.random.arrayElement(savedData.users)._id
         },
     ].map(club => new Clubs(club).save());
@@ -138,7 +306,7 @@ const saveComments = () => {
     let comments = [];
     savedData.clubs.forEach(club => {
         club.read.forEach(bookRead => {
-            const bookComments = new Array(25).fill({}).map(() => {
+            const bookComments = new Array(50).fill({}).map(() => {
                 return {
                     user: faker.random.arrayElement(club.members),
                     body: faker.lorem.paragraph(4),
