@@ -28,8 +28,6 @@ module.exports = {
         commentToBeAdded.club = req.params.clubId;
         commentToBeAdded.book = req.params.bookId;
 
-            console.log(commentToBeAdded)
-
         addNewComment(commentToBeAdded)
             .then(newComment => {
                 console.log('new comment', newComment)
