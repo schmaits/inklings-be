@@ -25,7 +25,9 @@ module.exports = {
     updateCurrentlyReading: (req, res) => {
         const userId = req.params.userId;
         const bookId = req.body.bookId;
-        updateCurrentlyReading(userId, bookId)
+        const query = req.query.update;
+
+        updateCurrentlyReading(userId, bookId, query)
             .then(updatedCurrentlyReading => {
                 res.status(200).json({updatedCurrentlyReading});
             })
@@ -38,7 +40,7 @@ module.exports = {
         const userId = req.params.userId;
         const bookId = req.body.bookId;
         const query = req.query.update;
-        
+
         updateToRead(userId, bookId, query)
             .then(updatedToRead => {
                 res.status(200).json({updatedToRead});
