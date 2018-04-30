@@ -30,11 +30,9 @@ module.exports = {
 
         addNewComment(commentToBeAdded)
             .then(newComment => {
-                console.log('new comment', newComment)
                 res.status(201).json({newComment});
             })
             .catch(err => {
-                console.log('err', err)
                 res.status(500).send(err);
             });
     },
