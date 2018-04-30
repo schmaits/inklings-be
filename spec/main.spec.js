@@ -259,14 +259,26 @@ describe('API endpoints', () => {
     });
 
     describe('PUT /api/users/:userId/currentlyReading', () => {
-        it('should be able to change the currently reading book', (done) => {
+        it('should be able to add to the currently reading book', (done) => {
             request(app)
-                .put(`/api/users/${savedData.users[0]._id}/currentlyReading`)
+                .put(`/api/users/${savedData.users[0]._id}/currentlyReading?update=add`)
                 .send({ bookId: savedData.books[1]._id})
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
-                    expect(res.body.updatedCurrentlyReading.name).to.equal(savedData.books[1].name);
+                    expect(res.body.updatedCurrentlyReading.includes(savedData.books[1]._id.toString())).to.be.true;
+                    done();
+                });
+        });
+      
+        it('should be able to remove a book from the currently reading list', (done) => {
+            request(app)
+                .put(`/api/users/${savedData.users[0]._id}/currentlyReading?update=remove`)
+                .send({ bookId: savedData.books[0]._id})
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedCurrentlyReading.includes(savedData.books[0]._id.toString())).to.be.false;
                     done();
                 });
         });
