@@ -23,7 +23,7 @@ const BooksSchema = new Schema({
         required: true
     },
     rating: {
-        type: Number, 
+        type: [Number], 
         min: 0,
         max: 5,
     },

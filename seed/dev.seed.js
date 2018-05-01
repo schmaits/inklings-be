@@ -18,7 +18,9 @@ const saveBooks = () => {
             year: book.year,
             coverImageUrl: book.imageLink,
             genres: book.genres,
-            rating: Math.round(Math.random() * 5),
+            rating: new Array(15).fill(1).map(number => {
+                return number * faker.random.number(5);
+            }),
             country: book.country
         };
     }).map(book => new Books(book).save());
@@ -289,7 +291,7 @@ const saveClubs = () => {
         {
             name: 'The Great Fratsby',
             summary: faker.lorem.paragraph(faker.random.number({min:1, max:4})),
-            members: new Array(15).fill('').map(() => {
+            members: new Array(15).fill('').map(() => { 
                 return faker.random.arrayElement(savedData.users)._id;
             }),
             currentlyReading: faker.random.arrayElement(savedData.books)._id,
