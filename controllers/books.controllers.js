@@ -1,4 +1,4 @@
-const { getAllBooks, getOneBook, addNewBook } = require('../lib/books.queries.js');
+const { getAllBooks, getOneBook, addNewBook, updateRating } = require('../lib/books.queries.js');
 
 module.exports = {
     getAllBooks: (req, res) => {
@@ -28,6 +28,18 @@ module.exports = {
         addNewBook(newBookToAdd)
             .then(newBook => {
                 res.status(201).json({newBook});
+            })
+            .catch(err => {
+                res.status(500).send(err);
+            });
+    },
+
+    updateRating: (req, res) => {
+        const newRating = req.body.addedRating;
+        const bookId = req.params.bookId;
+        updateRating(newRating, bookId)
+            .then(updatedRatingArray => {
+                res.status(200).json({updatedRatingArray});
             })
             .catch(err => {
                 res.status(500).send(err);
