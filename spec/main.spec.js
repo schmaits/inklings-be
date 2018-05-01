@@ -232,6 +232,20 @@ describe('API endpoints', () => {
         });
     });
 
+    describe('PUT /api/books/:bookId', () => {
+        it('should add a new rating to the ratings array', (done) => {
+            request(app)
+                .put(`/api/books/${savedData.books[0]._id}`)
+                .send({ addedRating: 4 })
+                .end((err, res) => {
+                    if (err) throw err;
+                    expect(res.status).to.equal(200);
+                    expect(res.body.updatedRatingArray.length).to.equal(savedData.books[0].rating.length + 1);
+                    done();
+                });
+        });
+    });
+
     describe('GET /api/users', () => {
         it('returns all users', (done) => {
             request(app)
