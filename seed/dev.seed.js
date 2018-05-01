@@ -316,7 +316,18 @@ const saveComments = () => {
                 createdAt: faker.date.recent()
             };
         });
-        comments = comments.concat(bookComments);
+        club.read.forEach(book => {
+            const readBookComments = new Array(10).fill({}).map(() => {
+                return {
+                    user: faker.random.arrayElement(club.members),
+                    body: faker.lorem.paragraph(4),
+                    book: book,
+                    club: club._id,
+                    createdAt: faker.date.recent()
+                };
+            });
+            comments = comments.concat(bookComments).concat(readBookComments);
+        });
     });
     comments.map(comment => new Comments(comment).save());
     return Promise.all(comments);

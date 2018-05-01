@@ -16,7 +16,7 @@ const saveBooks = () => {
             year: 1939,
             coverImageUrl: 'https://upload.wikimedia.org/wikipedia/en/1/1f/JohnSteinbeck_TheGrapesOfWrath.jpg',
             genres: ['fiction', 'classics', 'historical'],
-            rating: 4,
+            rating: [4, 5, 2, 3],
             country: 'United States'
         },
         {
@@ -25,7 +25,7 @@ const saveBooks = () => {
             year: 2005,
             coverImageUrl: 'https://upload.wikimedia.org/wikipedia/en/2/25/Never_Let_Me_Go.jpg',
             genres: ['fiction', 'dystopian', 'science fiction'],
-            rating: 5, 
+            rating: [5, 3, 1, 1], 
             country: 'United Kingdom'
         },
         {
@@ -34,7 +34,7 @@ const saveBooks = () => {
             year: 2000,
             coverImageUrl: 'https://upload.wikimedia.org/wikipedia/en/1/17/Novel_the_blind_assassin_cover.jpg',
             genres: ['fiction', 'mystery'],
-            rating: 3,
+            rating: [3, 5, 1, 4, 2],
             country: 'Canada'
         }
     ].map(book => new Books(book).save());
