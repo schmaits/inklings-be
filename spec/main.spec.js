@@ -381,13 +381,10 @@ describe('API endpoints', () => {
         });
     });
 
-    describe('DELETE /api/comment/:commentId', () => {
+    describe('DELETE /api/comments/:commentId/user/:userId', () => {
         it('should delete a comment if it was posted by the specified user', (done) => {
             request(app)
-                .delete(`/api/comments/${savedData.comments[0]._id}`)
-                .send({
-                    userId: savedData.comments[0].user
-                })
+                .delete(`/api/comments/${savedData.comments[0]._id}/users/${savedData.comments[0].user}`)
                 .end((err, res) => {
                     if (err) throw err;
                     expect(res.status).to.equal(200);
