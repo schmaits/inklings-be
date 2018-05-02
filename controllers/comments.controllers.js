@@ -39,7 +39,8 @@ module.exports = {
 
     deleteComment: (req, res) => {
         const commentId = req.params.commentId;
-        const userId = req.body.userId;
+        const userId = req.params.userId;
+        console.log(commentId, userId)
         deleteComment(commentId, userId)
             .then(deleteConfirmation => {
                 res.status(200).json({deleteConfirmation});

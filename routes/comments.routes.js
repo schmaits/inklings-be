@@ -7,7 +7,7 @@ commentsRouter.get('/clubs/:clubId', getClubComments);
 
 commentsRouter.post('/clubs/:clubId/books/:bookId', addNewComment);
 
-commentsRouter.delete('/:commentId', deleteComment);
+commentsRouter.delete('/:commentId/users/:userId', deleteComment);
 
 commentsRouter.put('/:commentId', editComment);
 
