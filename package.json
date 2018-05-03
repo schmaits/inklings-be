@@ -1,5 +1,5 @@
 {
-  "name": "back-end",
+  "name": "inklings-be",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,18 @@
   },
   "scripts": {
     "test": "mocha spec/",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "nodemon index.js",
+    "seed:dev": "node seed/seed.js",
+    "seed:production": "NODE_ENV=production node seed/seed.js",
+    "lint": "eslint ./"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "eslint": "^4.19.1",
     "express": "^4.16.3",
     "faker": "^4.1.0",
     "mongoose": "^5.0.16"

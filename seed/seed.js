@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 
-const DB = 'mongodb://localhost/book-club-api';
+const DB = require('../config').DB[process.env.NODE_ENV];
 const { Books, Clubs, Comments, Quotes, Users } = require('../models/models');
 const booksData = require('./data/books.json');
 const quotesData = require('./data/quotes.json');
