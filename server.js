@@ -5,10 +5,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const db = require('./config').DB[process.env.NODE_ENV];
-const apiRouter = require('./routes/api.routes');
-
 const app = express();
+const apiRouter = require('./routes/api.routes');
+let db;
+
+process.env.NODE_ENV === 'production' ? db = process.env.MONGODB_URI : require('./config').DB[process.env.NODE_ENV];
+
 mongoose.Promise = Promise;
 
 mongoose.connect(db)
