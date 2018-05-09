@@ -63,7 +63,7 @@ module.exports = {
 			});
 	},
 
-	updateRead: (req, res) => {
+	updateRead: (req, res, next) => {
 		const clubId = req.params.clubId;
 		const bookId = req.body.bookId;
 		updateRead(clubId, bookId)
@@ -71,6 +71,7 @@ module.exports = {
 				res.status(200).json({updatedReadList});
 			})
 			.catch(err => {
+				if (err.message === 'Cannot read property \'read\' of null') return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
