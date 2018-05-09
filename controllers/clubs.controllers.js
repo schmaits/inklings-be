@@ -11,14 +11,15 @@ module.exports = {
 			});
 	},
 
-	addNewClub: (req, res) => {
+	addNewClub: (req, res, next) => {
 		let clubToBeAdded = req.body;
 		addNewClub(clubToBeAdded)
 			.then(newClub => {
 				res.status(201).json({newClub});
 			})
 			.catch(err => {
-				res.status(400).send(err);
+				if (err.name === 'ValidationError') return next({ status: 400, msg: 'You have not supplied the required information to create a club'});
+				res.status(500).send(err);
 			});
 	},
     
