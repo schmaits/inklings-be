@@ -1,7 +1,5 @@
 /* eslint no-console: "off" */
 
-process.env.NODE_ENV = 'test';
-
 const mongoose = require('mongoose');
 const { expect } = require('chai');
 const request = require('supertest');
