@@ -35,7 +35,7 @@ module.exports = {
 			});
 	},
 
-	updateRating: (req, res) => {
+	updateRating: (req, res, next) => {
 		const newRating = req.body.addedRating;
 		const bookId = req.params.bookId;
 		updateRating(newRating, bookId)
@@ -43,6 +43,7 @@ module.exports = {
 				res.status(200).json({updatedRatingArray});
 			})
 			.catch(err => {
+				if (err.name === 'TypeError') return next({ status: 404, msg: `Couldn't find a book with ID ${bookId}`});
 				res.status(500).send(err);
 			});
 	}
