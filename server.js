@@ -9,9 +9,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const apiRouter = require('./routes/api.routes');
-let db;
 
-process.env.NODE_ENV === 'production' ? db = process.env.MONGODB_URI : require('./config').DB[process.env.NODE_ENV];
+const db = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : require('./config').DB[process.env.NODE_ENV];
 
 mongoose.Promise = Promise;
 
