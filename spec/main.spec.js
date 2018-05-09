@@ -215,12 +215,13 @@ describe('API endpoints', () => {
 				.delete(`/api/clubs/${savedData.clubs[0]._id}`)
 				.send({ userId: savedData.users[1]._id})
 				.then(res => {
-					expect(res.body.deleteConfirmation).to.eql({ n: 0, ok: 1 });
+					expect(res.status).to.equal(403);
 				})
 				.catch(err => {
 					throw err;
 				});
 		});
+		
 	});
 
 	describe('GET /api/books', () => {
