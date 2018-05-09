@@ -11,10 +11,11 @@ module.exports = {
 			});
 	},
     
-	getOneUser: (req, res) => {
+	getOneUser: (req, res, next) => {
 		const userId = req.params.userId;
 		getOneUser(userId)
 			.then(user => {
+				if (user.length === 0) return next({ status: 404, msg: `Couldn't find user with ID ${userId}`});
 				res.status(200).json({user});
 			})
 			.catch(err => {
@@ -28,7 +29,8 @@ module.exports = {
 		const query = req.query.update;
 
 		updateCurrentlyReading(userId, bookId, query)
-			.then(updatedCurrentlyReading => {
+			.then(updatedUser => {
+				const updatedCurrentlyReading = updatedUser.currentlyReading;
 				res.status(200).json({updatedCurrentlyReading});
 			})
 			.catch(err => {
@@ -42,7 +44,8 @@ module.exports = {
 		const query = req.query.update;
 
 		updateToRead(userId, bookId, query)
-			.then(updatedToRead => {
+			.then(updatedUser => {
+				const updatedToRead = updatedUser.toRead; 
 				res.status(200).json({updatedToRead});
 			})
 			.catch(err => {
@@ -50,15 +53,16 @@ module.exports = {
 			});
 	},
 
-	updateBooksRead: (req, res, next) => {
+	updateBooksRead: (req, res) => {
 		const userId = req.params.userId;
 		const bookId = req.body.bookId;
 		updateBooksRead(userId, bookId)
-			.then(updatedBooksRead => {
+			.then(updatedUser => {
+				const updatedBooksRead = updatedUser.booksRead;
 				res.status(200).json({updatedBooksRead});
 			})
 			.catch(err => {
-				next();
+				res.status(500).send(err);
 			});
 	}
 };
