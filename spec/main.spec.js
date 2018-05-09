@@ -317,6 +317,18 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+
+		it('should return an error if an incorrect ID is passed', () => {
+			return request(app)
+				.put('/api/books/5ad47287df24c36b3bec9d2f')
+				.send({ addedRating: 4 })
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('GET /api/users', () => {
