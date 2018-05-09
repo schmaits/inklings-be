@@ -251,15 +251,16 @@ describe('API endpoints', () => {
 				});
 		});
 
-		// it('should return an appropriate error if an invalid ID is passed', (done) => {
-		//     request(app)
-		//         .get('/api/books/5ad47287df24c36b3bec9d2f')
-		//         .end((err, res) => {
-		//             if (err) throw err;
-		//             expect(res.status).to.equal(404);
-		//             done();
-		//         });
-		// });
+		it('should return an appropriate error if an invalid ID is passed', () => {
+			return request(app)
+				.get('/api/books/5ad47287df24c36b3bec9d2f')
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('POST /api/books', () => {
