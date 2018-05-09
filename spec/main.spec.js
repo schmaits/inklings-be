@@ -23,30 +23,32 @@ describe('API endpoints', () => {
 	});
     
 	describe('GET /api/clubs', () => {
-		it('should return an array of all clubs', (done) => {
-			request(app)
+		it('should return an array of all clubs', () => {
+			return request(app)
 				.get('/api/clubs')
-				.end((err, res) => {
-					if (err) throw err;
+				.then(res => {
 					expect(res.body.allClubs.length).to.equal(2);
-					done();
+				})
+				.catch(err => {
+					throw err;
 				});
 		});
 	});
 
 	describe('POST /api/clubs', () => {
-		it('should add a new club', (done) => {
-			request(app)
+		it('should add a new club', () => {
+			return request(app)
 				.post('/api/clubs')
 				.send({
 					name: 'test club',
 					admin: savedData.users[1]._id
 				})
-				.end((err, res) => {
-					if (err) throw err;
+				.then(res => {
 					expect(res.status).to.equal(201);
 					expect(res.body.newClub).to.have.property('_id');
-					done();
+				})
+				.catch(err => {
+					throw err;
 				});
 		});
 
@@ -119,6 +121,18 @@ describe('API endpoints', () => {
 					expect(res.status).to.equal(200);
 					expect(res.body.updatedMemberList.length).to.equal(savedData.clubs[1].members.length - 1);
 					done();
+				});
+		});
+
+		it('should return an error if an invalid club ID is passed', () => {
+			return request(app)
+				.put('/api/clubs/5ad72e653e05e33c0541cf83/users?update=add')
+				.send({ userId: savedData.users[0]._id})
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
 				});
 		});
 	});
