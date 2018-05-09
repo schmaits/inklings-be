@@ -27,7 +27,7 @@ module.exports = {
 		let clubId = req.params.clubId;
 		getOneClub(clubId)
 			.then(club => {
-				if (!club) next({ status: 404, msg: `No club with ID ${clubId}`});
+				if (!club) return next({ status: 404, msg: `No club with ID ${clubId}`});
 				res.status(200).json({club});
 			})
 			.catch(err => {
