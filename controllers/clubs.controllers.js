@@ -41,11 +41,13 @@ module.exports = {
 		const updateQuery = req.query.update;
 		const userId = req.body.userId;
 		updateMembersList(clubId, updateQuery, userId)
-			.then(updatedMemberList => {
+			.then(updatedClub => {
+				if (updatedClub === null) return next({ status: 404, msg: `Couldn't find the club with ID ${clubId}`});
+
+				const updatedMemberList = updatedClub.members;
 				res.status(200).json({updatedMemberList});
 			})
 			.catch(err => {
-				if (err.message === 'Cannot read property \'members\' of null') return next({ status: 404, msg: `Couldn't find the club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
@@ -54,11 +56,13 @@ module.exports = {
 		const clubId = req.params.clubId;
 		const bookId = req.body.bookId;
 		updateCurrentlyReading(clubId, bookId)
-			.then(updatedCurrentlyReading => {
+			.then(updatedClub => {
+				if (updatedClub === null) return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
+
+				const updatedCurrentlyReading = updatedClub.currentlyReading;
 				res.status(200).json({updatedCurrentlyReading});
 			})
 			.catch(err => {
-				if (err.message === 'Cannot read property \'currentlyReading\' of null') return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
@@ -67,11 +71,13 @@ module.exports = {
 		const clubId = req.params.clubId;
 		const bookId = req.body.bookId;
 		updateRead(clubId, bookId)
-			.then(updatedReadList => {
+			.then(updatedClub => {
+				if (updatedClub === null) return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
+				
+				const updatedReadList = updatedClub. read;
 				res.status(200).json({updatedReadList});
 			})
 			.catch(err => {
-				if (err.message === 'Cannot read property \'read\' of null') return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
