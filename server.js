@@ -29,8 +29,9 @@ app.use(bodyParser.json());
 app.use('/api', apiRouter);
 
 app.use((err, req, res, next) => {
-	if (err.status === 404) return res.status(404).send({ status: err.status, msg: err.msg });
 	if (err.status === 400) return res.status(400).send({ status: err.status, msg: err.msg });
+	if (err.status === 403) return res.status(403).send({ status: err.status, msg: err.msg });
+	if (err.status === 404) return res.status(404).send({ status: err.status, msg: err.msg });
 	next();
 });
 
