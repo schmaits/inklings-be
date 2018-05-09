@@ -36,7 +36,7 @@ module.exports = {
 			});
 	},
 
-	updateMembersList: (req, res) => {
+	updateMembersList: (req, res, next) => {
 		const clubId = req.params.clubId;
 		const updateQuery = req.query.update;
 		const userId = req.body.userId;
@@ -45,7 +45,8 @@ module.exports = {
 				res.status(200).json({updatedMemberList});
 			})
 			.catch(err => {
-				res.status(400).send(err);
+				if (err.name === 'TypeError') return next({ status: 404, msg: `Couldn't find the club with ID ${clubId}`});
+				res.status(500).send(err);
 			});
 	},
 
