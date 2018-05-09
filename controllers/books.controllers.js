@@ -30,7 +30,8 @@ module.exports = {
 				res.status(201).json({newBook});
 			})
 			.catch(err => {
-				if (err.message.includes('ValidationError')) return next({ status: 400, msg: `The information you provided is not valid. Error: ${err.message}`});
+				if (err.name === 'ValidationError') return next({ status: 400, msg: `The information you provided is not valid. Error: ${err.message}`});
+
 				res.status(500).send(err);
 			});
 	},
@@ -39,11 +40,13 @@ module.exports = {
 		const newRating = req.body.addedRating;
 		const bookId = req.params.bookId;
 		updateRating(newRating, bookId)
-			.then(updatedRatingArray => {
+			.then(updatedBook => {
+				const updatedRatingArray = updatedBook.rating;
 				res.status(200).json({updatedRatingArray});
 			})
 			.catch(err => {
 				if (err.name === 'TypeError') return next({ status: 404, msg: `Couldn't find a book with ID ${bookId}`});
+
 				res.status(500).send(err);
 			});
 	}
