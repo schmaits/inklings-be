@@ -183,6 +183,18 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+
+		it('should return an error if an invalid club ID is passed', () => {
+			return request(app)
+				.put('/api/clubs/5ad72e653e05e33c0541cf83/read')
+				.send({ bookId: savedData.books[2]._id})
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('DELETE /api/clubs/:clubId', () => {
