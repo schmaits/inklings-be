@@ -11,14 +11,14 @@ module.exports = {
 			});
 	},
 
-	getOneBook: (req, res) => {
+	getOneBook: (req, res, next) => {
 		const bookId = req.params.bookId;
 		getOneBook(bookId)
 			.then(book => {
+				if (book.length === 0) return next({ status: 404, msg: `Couldn\'t find a book with ID ${bookId}`});
 				res.status(200).json({book});
 			})
 			.catch(err => {
-				if (err.message === 'That ID could not be found') res.status(404).send(err);
 				res.status(500).send(err);
 			});
 	},
