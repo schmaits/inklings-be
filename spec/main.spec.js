@@ -357,6 +357,17 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+		
+		it('returns an error if an incorrect ID is passed', () => {
+			return request(app)
+				.get('/api/users/5ad47287df24c36b3bec9d2f')
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('PUT /api/users/:userId/currentlyReading', () => {
