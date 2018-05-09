@@ -45,12 +45,12 @@ module.exports = {
 				res.status(200).json({updatedMemberList});
 			})
 			.catch(err => {
-				if (err.name === 'TypeError') return next({ status: 404, msg: `Couldn't find the club with ID ${clubId}`});
+				if (err.message === 'Cannot read property \'members\' of null') return next({ status: 404, msg: `Couldn't find the club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
 
-	updateCurrentlyReading: (req, res) => {
+	updateCurrentlyReading: (req, res, next) => {
 		const clubId = req.params.clubId;
 		const bookId = req.body.bookId;
 		updateCurrentlyReading(clubId, bookId)
@@ -58,6 +58,7 @@ module.exports = {
 				res.status(200).json({updatedCurrentlyReading});
 			})
 			.catch(err => {
+				if (err.message === 'Cannot read property \'currentlyReading\' of null') return next({ status: 404, msg: `Couldn't find club with ID ${clubId}`});
 				res.status(500).send(err);
 			});
 	},
