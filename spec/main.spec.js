@@ -283,6 +283,25 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+
+		it('should return an error if the necessary information is not provided', () => {
+			return request(app)
+				.post('/api/books')
+				.send({
+					name: 'Flowers for Algernon',
+					author: 'Daniel Keyes',
+					year: 1959,
+					coverImageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/ea/FlowersForAlgernon.jpg',
+					genres: ['fiction', 'science fiction'],
+					country: 'United States'
+				})
+				.then(res => {
+					expect(res.status).to.equal(400);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('PUT /api/books/:bookId', () => {
