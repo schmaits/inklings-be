@@ -17,7 +17,7 @@ describe('API endpoints', () => {
 			});
 	});
     
-	afterEach(() => {
+	after(() => {
 		mongoose.connection.close();
 		console.log('Connection closed');
 	});
