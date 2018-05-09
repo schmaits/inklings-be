@@ -76,11 +76,13 @@ module.exports = {
 			});
 	},
 
-	deleteClub: (req, res) => {
+	deleteClub: (req, res, next) => {
 		const clubId = req.params.clubId;
 		const userId = req.body.userId;
 		deleteClub(clubId, userId)
 			.then(deleteConfirmation => {
+				if (deleteConfirmation.n === 0 && deleteConfirmation.ok === 1 &&
+				Object.keys(deleteConfirmation).length === 2) return next ({ status: 403, msg: 'This user is not the admin of this club' });
 				res.status(200).json({deleteConfirmation});
 			})
 			.catch(err => {
