@@ -143,8 +143,6 @@ describe('API endpoints', () => {
 		});
 	});
 
-	// Check / implement error handling middleware from here
-
 	describe('PUT /api/clubs/:clubId/currentlyReading', () => {
 		it('should be able to update the current book', () => {
 			return request(app)
@@ -153,6 +151,18 @@ describe('API endpoints', () => {
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res.body.updatedCurrentlyReading).to.equal(savedData.books[2]._id.toString());
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
+		
+		it('should return an error if an invalid club ID is passed', () => {
+			return request(app)
+				.put('/api/clubs/5ad72e653e05e33c0541cf83/currentlyReading')
+				.send({ bookId: savedData.books[2]._id})
+				.then(res => {
+					expect(res.status).to.equal(404);
 				})
 				.catch(err => {
 					throw err;
