@@ -149,11 +149,7 @@ const saveComments = () => {
 };
 
 const seedTestDatabase = () => {
-	return mongoose.connect(DB)
-		.then(() => {
-			console.log(`Successfully connected to ${DB}`);
-			return mongoose.connection.dropDatabase();
-		})
+	return mongoose.connection.dropDatabase()
 		.then(() => {
 			console.log('Database dropped');
 			return saveBooks();
