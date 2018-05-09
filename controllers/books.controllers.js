@@ -15,7 +15,7 @@ module.exports = {
 		const bookId = req.params.bookId;
 		getOneBook(bookId)
 			.then(book => {
-				if (book.length === 0) return next({ status: 404, msg: `Couldn\'t find a book with ID ${bookId}`});
+				if (book.length === 0) return next({ status: 404, msg: `Couldn't find a book with ID ${bookId}`});
 				res.status(200).json({book});
 			})
 			.catch(err => {
@@ -23,13 +23,14 @@ module.exports = {
 			});
 	},
 
-	addNewBook: (req, res) => {
+	addNewBook: (req, res, next) => {
 		const newBookToAdd = req.body;
 		addNewBook(newBookToAdd)
 			.then(newBook => {
 				res.status(201).json({newBook});
 			})
 			.catch(err => {
+				if (err.message.includes('ValidationError')) return next({ status: 400, msg: `The information you provided is not valid. Error: ${err.message}`});
 				res.status(500).send(err);
 			});
 	},
