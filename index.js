@@ -1,4 +1,5 @@
-/* eslint-disable no-console  */
+/* eslint no-console: "off" */
+
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
 
 const app = require('./server');
