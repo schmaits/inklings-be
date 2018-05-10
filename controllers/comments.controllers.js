@@ -12,10 +12,11 @@ module.exports = {
 			});
 	},
 
-	getClubComments: (req, res) => {
+	getClubComments: (req, res, next) => {
 		const clubId = req.params.clubId;
 		getClubComments(clubId)
 			.then(clubComments => {
+				if (clubComments.length === 0) return next({ status: 404, msg: `Can't find a club with ID ${clubId}` });
 				res.status(200).json({clubComments});
 			})
 			.catch(err => {
