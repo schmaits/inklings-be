@@ -383,7 +383,7 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
-      
+	
 		it('should be able to remove a book from the currently reading list', () => {
 			return request(app)
 				.put(`/api/users/${savedData.users[0]._id}/currentlyReading?update=remove`)
@@ -391,6 +391,18 @@ describe('API endpoints', () => {
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res.body.updatedCurrentlyReading.includes(savedData.books[0]._id.toString())).to.be.false;
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
+		
+		it('should return a 404 error if an incorrect user ID is supplied', () => {
+			return request(app)
+				.put('/api/users/5ad47287df24c36b3bec9d2f/currentlyReading?update=add')
+				.send({ bookId: savedData.books[1]._id})
+				.then(res => {
+					expect(res.status).to.equal(404);
 				})
 				.catch(err => {
 					throw err;
