@@ -12,6 +12,29 @@
         <div class="box">
             <h1 class="header">Inklings API</h1>
             <br/>
+            <div style="text-align:center">
+                <h2>
+                    <a class="header" href=#clubs>clubs</a>
+                </h2>
+                <h2>
+                    <a class="header" href=#books>books</a>
+                </h2>
+                <h2>
+                    <a class="header" href=#users>users</a>
+                </h2>
+                <h2>
+                    <a class="header" href=#comments>comments</a>
+                </h2>
+                <h2>
+                    <a class="header" href=#quotes>quotes</a>
+                </h2>
+            </div>
+            <br/>
+            
+            
+            <a id="clubs">
+                <hr style="border: none"/>
+            </a>
 
             <h2 class="header">GET /api/clubs</h2>
             <p class="bodyText">Returns an array of all clubs</p>
@@ -112,8 +135,10 @@
                 </div>
             </p>
             
-            <hr/>
-            
+            <a id="books">
+                <hr/>
+            </a>
+
             <h2 class="header">GET /api/books</h2>
             <p class="bodyText">Returns an array of all books</p>
             
@@ -166,7 +191,9 @@
                     </div>
                 </p>
             
-            <hr/>
+            <a id="users">
+                <hr/>
+            </a>
 
             <h2 class="header">GET /api/users/</h2>
             <p class="bodyText">Returns an array of all users</p>
@@ -237,7 +264,9 @@
                 </div>
             </p>
             
-            <hr/>
+            <a id="comments">
+                <hr/>
+            </a>
             
             <h2 class="header">GET /api/comments/clubs/:clubId</h2>
             <p class="bodyText">Returns an array of comments for a club</p>
@@ -291,7 +320,9 @@
             <p class="bodyText">Deletes a comment, if the comment was written by the user.
             </p>
             
-            <hr/>
+            <a id="quotes">
+                <hr/>
+            </a>
 
             <h2 class="header">GET /api/quotes</h2>
             <p class="bodyText">Returns an array of all quotes</p>
