@@ -8,7 +8,7 @@ module.exports = {
 				res.status(200).json({bookComments});
 			})
 			.catch(err => {
-				res.status(404).send(err);
+				res.status(500).send(err);
 			});
 	},
 
@@ -20,11 +20,11 @@ module.exports = {
 				res.status(200).json({clubComments});
 			})
 			.catch(err => {
-				res.status(404).send(err);
+				res.status(500).send(err);
 			});
 	},
 
-	addNewComment: (req, res) => {
+	addNewComment: (req, res, next) => {
 		const commentToBeAdded = req.body;
 		commentToBeAdded.club = req.params.clubId;
 		commentToBeAdded.book = req.params.bookId;
@@ -34,6 +34,7 @@ module.exports = {
 				res.status(201).json({newComment});
 			})
 			.catch(err => {
+				if (err.name === 'ValidationError') return next({ status: 400, msg: `You have not provided the required information. Error: "${err.message}"` });
 				res.status(500).send(err);
 			});
 	},
