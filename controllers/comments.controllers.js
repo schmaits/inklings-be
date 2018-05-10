@@ -39,11 +39,14 @@ module.exports = {
 			});
 	},
 
-	deleteComment: (req, res) => {
+	deleteComment: (req, res, next) => {
 		const commentId = req.params.commentId;
 		const userId = req.params.userId;
 		deleteComment(commentId, userId)
 			.then(deleteConfirmation => {
+				if (deleteConfirmation.n === 0 && deleteConfirmation.ok === 1 &&
+				Object.keys(deleteConfirmation).length === 2) return next ({ status: 403, msg: 'This user is not the author of this comment' });
+
 				res.status(200).json({deleteConfirmation});
 			})
 			.catch(err => {
