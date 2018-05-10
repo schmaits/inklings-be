@@ -56,7 +56,7 @@ module.exports = {
 			});
 	},
 
-	updateBooksRead: (req, res) => {
+	updateBooksRead: (req, res, next) => {
 		const userId = req.params.userId;
 		const bookId = req.body.bookId;
 		updateBooksRead(userId, bookId)
@@ -65,6 +65,7 @@ module.exports = {
 				res.status(200).json({updatedBooksRead});
 			})
 			.catch(err => {
+				if (err.message === 'Cannot read property \'booksRead\' of null') return next({ status: 404, msg: `Can't find book with ID ${bookId}`});
 				res.status(500).send(err);
 			});
 	}
