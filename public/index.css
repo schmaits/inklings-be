@@ -1,0 +1,45 @@
+.background {
+    background-image: url("https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=954560871844da528c60343dc344ccbf&auto=format&fit=crop&w=1350&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+    height: 100%;
+    padding: 5%;
+    margin: -10px;
+}
+
+.box {
+    background-color: #cea11a;
+    padding: 5%;
+}
+
+.header {
+    font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+    font-weight: lighter;
+    color: #363636;
+}
+
+h1 {
+    text-align: center;
+}
+
+.bodyText {
+    color: #363636;
+    font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.code {
+    margin-left: 5%;
+    color: #363636;
+}
+
+hr {
+    width: 80%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #cea11a;
+    border-color: #363636 #cea11a #cea11a #cea11a
+}

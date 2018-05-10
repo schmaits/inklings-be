@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inklings API</title>
+    <link rel="stylesheet" type="text/css" href="index.css" media="screen" />
+</head>
+<body>
+    <div class="background">
+        <div class="box">
+            <h1 class="header">Inklings API</h1>
+            <br/>
+
+            <h2 class="header">GET /api/clubs</h2>
+            <p class="bodyText">Returns an array of all clubs</p>
+            
+            <hr/>
+
+            <h2 class="header">GET /api/clubs/:clubId</h2>
+            <p class="bodyText">Returns an array with one club</p>
+            
+            <hr/>
+
+            <h2 class="header">POST /api/clubs</h2>
+            <p class="bodyText">Adds a new club. The following information can be given as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                    { 
+                        <br/>
+                        name: <var>Club Name</var> (string, required),
+                        <br/>
+                        summary: <var>Club Summary</var> (string),
+                        <br/>
+                        members: <var>Club members</var> ([user ID]),
+                        <br/>
+                        admin: <var>Club Administrator</var> (user ID, required),
+                        <br/>
+                        currentlyReading: <var>Book that club is currently 
+                        reading </var> (book ID, required),
+                        <br/>
+                        read: <var>Books read</var> ([book ID], required)
+                        <br/>
+                    }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/clubs/:clubId/users</h2>
+            <p class="bodyText">Adds a new member to a club. The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                    { 
+                        <br/>
+                        userId: <var>User to be added</var> (user ID, required)
+                        <br/>
+                    }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/clubs/:clubId/currentlyReading</h2>
+            <p class="bodyText">Updates the book the club is currently reading. The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                    { 
+                        <br/>
+                        bookId: <var>Book to be added</var> (book ID, required)
+                        <br/>
+                    }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+           
+            <h2 class="header">PUT /api/clubs/:clubId/read</h2>
+            <p class="bodyText">Adds a book the club has read. The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                    { 
+                        <br/>
+                        bookId: <var>Book to be added</var> (book ID, required)
+                        <br/>
+                    }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+           
+            <h2 class="header">DELETE /api/clubs/:clubId</h2>
+            <p class="bodyText">Deletes a club. The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                    { 
+                        <br/>
+                        userId: <var>Club admin</var> (user ID, required)
+                        <br/>
+                    }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+            
+            <h2 class="header">GET /api/books</h2>
+            <p class="bodyText">Returns an array of all books</p>
+            
+            <hr/>
+            
+            <h2 class="header">GET /api/books/:bookId</h2>
+            <p class="bodyText">Returns an array of one book</p>
+            
+            <hr/>
+            
+            <h2 class="header">POST /api/books/</h2>
+            <p class="bodyText">Adds a new book. The following information can be given as a JSON body:
+                    <br/>
+                    <div class="code">
+                        <code>
+                        { 
+                            <br/>
+                            title: <var>Book Title</var> (string, required),
+                            <br/>
+                            author: <var>Author</var> (string, required),
+                            <br/>
+                            year: <var>Year originally published</var> (number, required),
+                            <br/>
+                            coverImageUrl: <var>URL for cover image</var> (string, required),
+                            <br/>
+                            genres: <var>Book genre(s)</var> ([string], required),
+                            <br/>
+                            rating: <var>Book rating(s)</var> ([number, min: 0, max: 5])
+                            <br/>
+                            country: <var>Country of origin</var> (string, required)
+                            <br/>
+                        }
+                        </code>
+                    </div>
+                </p>
+            
+            <hr/>
+            
+            <h2 class="header">PUT /api/books/:bookId</h2>
+            <p class="bodyText">Adds a new rating. The following information is required as a JSON body:
+                    <br/>
+                    <div class="code">
+                        <code>
+                            { 
+                                <br/>
+                                addedRating: <var>Rating to be added</var> (number between 0 and 5, required)
+                                <br/>
+                            }
+                        </code>
+                    </div>
+                </p>
+            
+            <hr/>
+
+            <h2 class="header">GET /api/users/</h2>
+            <p class="bodyText">Returns an array of all users</p>
+            
+            <hr/>
+
+            <h2 class="header">GET /api/users/:userId</h2>
+            <p class="bodyText">Returns an array of one user</p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/users/:userId/currentlyReading</h2>
+            <p class="bodyText">Adds or removes a book from the currently reading list. This route requires an update query of 'add' or 'remove', for example:
+            <br/>
+            <br/>
+            <i>/api/users/:userId/currentlyReading?update=add</i>
+            <br/>
+            <br/>
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            bookId: <var>Book to be added</var> (book ID, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/users/:userId/toRead</h2>
+            <p class="bodyText">Adds or removes a book from the to read list. This route requires an update query of 'add' or 'remove', for example:
+            <br/>
+            <br/>
+            <i>/api/users/:userId/toRead?update=add</i>
+            <br/>
+            <br/>
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            bookId: <var>Book to be added</var> (book ID, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/users/:userId/booksRead</h2>
+            <p class="bodyText">Adds a book from the books read list. 
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            bookId: <var>Book to be added</var> (book ID, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+            
+            <h2 class="header">GET /api/comments/clubs/:clubId</h2>
+            <p class="bodyText">Returns an array of comments for a club</p>
+            
+            <hr/>
+
+            <h2 class="header">GET /api/comments/clubs/:bookId</h2>
+            <p class="bodyText">Returns an array of comments for a book</p>
+            
+            <hr/>
+
+            <h2 class="header">POST /api/comments/clubs/:clubId/books/:bookId</h2>
+            <p class="bodyText">Adds a new comment. 
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            body: <var>Comment body</var> (string, required)
+                            <br/>
+                            user: <var>User posting the comment</var> (user ID, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">PUT /api/comments/:commentId</h2>
+            <p class="bodyText">Edits a comment, if the comment was written by the user. 
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            updatedBody: <var>Comment body</var> (string, required)
+                            <br/>
+                            user: <var>User posting the comment</var> (user ID, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">DELETE /api/comments/:commentId/user/:userId</h2>
+            <p class="bodyText">Deletes a comment, if the comment was written by the user.
+            </p>
+            
+            <hr/>
+
+            <h2 class="header">GET /api/quotes</h2>
+            <p class="bodyText">Returns an array of all quotes</p>
+            
+            <hr/>
+
+            <h2 class="header">POST /api/quotes/books/:bookId</h2>
+            <p class="bodyText">Adds a new quote. 
+            The following information is required as a JSON body:
+                <br/>
+                <div class="code">
+                    <code>
+                        { 
+                            <br/>
+                            body: <var>Quote body</var> (string, required)
+                            <br/>
+                        }
+                    </code>
+                </div>
+            </p>
+            
+        </div>
+    </div>
+</body>
+</html>
