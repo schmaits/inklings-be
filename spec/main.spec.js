@@ -503,6 +503,17 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+		
+		it('should return an error if an invalid ID is passed', () => {
+			return request(app)
+				.get('/api/comments/clubs/5ad47287df24c36b3bec9d2f')
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('POST /api/comments/clubs/:clubId/books/:bookId', () => {
