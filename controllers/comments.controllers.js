@@ -54,12 +54,13 @@ module.exports = {
 			});
 	},
 
-	editComment: (req, res) => {
+	editComment: (req, res, next) => {
 		const commentId = req.params.commentId;
 		const userId = req.body.user;
 		const bodyToUpdate = req.body.updatedBody;
 		editComment(commentId, userId, bodyToUpdate)
 			.then(updatedComment => {
+				if (updatedComment === null) return next ({ status: 403, msg: 'This user is not the author of this comment' });
 				res.status(200).json({updatedComment});
 			})
 			.catch(err => {
