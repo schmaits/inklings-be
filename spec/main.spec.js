@@ -436,6 +436,18 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+		
+		it('should return a 404 error if an incorrect user ID is supplied', () => {
+			return request(app)
+				.put('/api/users/5ad47287df24c36b3bec9d2f/toRead?update=remove')
+				.send({ bookId: savedData.books[1]._id})
+				.then(res => {
+					expect(res.status).to.equal(404);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('PUT /api/users/:userId/booksRead', () => {
