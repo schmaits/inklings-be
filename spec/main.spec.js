@@ -634,6 +634,18 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+		
+		it('should return an appropriate error if the correct data is not provided', () => {
+			return request(app)
+				.post(`/api/quotes/books/${savedData.books[0]._id}`)
+				.send({ text: 'This is a new quote' })
+				.then(res => {
+					expect(res.status).to.equal(400);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 });
 
