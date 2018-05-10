@@ -561,6 +561,17 @@ describe('API endpoints', () => {
 					throw err;
 				});
 		});
+		
+		it('should not delete a comment if it was not posted by the specified user', () => {
+			return request(app)
+				.delete(`/api/comments/${savedData.comments[0]._id}/users/${savedData.comments[1].user}`)
+				.then(res => {
+					expect(res.status).to.equal(403);
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
 	});
 
 	describe('PUT /api/comments/:commentId', () => {
