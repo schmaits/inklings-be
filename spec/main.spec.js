@@ -575,7 +575,7 @@ describe('API endpoints', () => {
 	});
 
 	describe('PUT /api/comments/:commentId', () => {
-		it('should allow editing of a comments body if they wrote that comment', () => {
+		it('should allow editing of a comment\'s body if they wrote that comment', () => {
 			return request(app)
 				.put(`/api/comments/${savedData.comments[0]._id}`)
 				.send({
@@ -585,6 +585,21 @@ describe('API endpoints', () => {
 				.then(res => {
 					expect(res.status).to.equal(200);
 					expect(res.body.updatedComment.body).to.equal('This is an amended comment');
+				})
+				.catch(err => {
+					throw err;
+				});
+		});
+		
+		it('should not allow editing of a comment\'s body if they did not write that comment', () => {
+			return request(app)
+				.put(`/api/comments/${savedData.comments[0]._id}`)
+				.send({
+					updatedBody: 'This is an amended comment',
+					user: savedData.comments[1].user
+				})
+				.then(res => {
+					expect(res.status).to.equal(403);
 				})
 				.catch(err => {
 					throw err;
