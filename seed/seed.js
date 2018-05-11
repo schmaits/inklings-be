@@ -236,30 +236,23 @@ const saveClubs = () => {
 	return Promise.all(clubs);
 };
 
+const createRandomComment = (clubId, bookId, members) => {
+	return {
+		user: chance.pickone(members),
+		body: chance.paragraph(),
+		book: bookId,
+		club: clubId,
+		createdAt: faker.date.recent()
+	};
+};
+
 const saveComments = () => {
 	let comments = [];
 	savedData.clubs.forEach(club => {
 		const bookComments = new Array(10).fill({}).map(() => {
-			return {
-				user: faker.random.arrayElement(club.members),
-				body: faker.lorem.paragraph(4),
-				book: club.currentlyReading,
-				club: club._id,
-				createdAt: faker.date.recent()
-			};
+			return createRandomComment(club._id, club.currentlyReading, club.members);
 		});
-		club.read.forEach(book => {
-			const readBookComments = new Array(10).fill({}).map(() => {
-				return {
-					user: faker.random.arrayElement(club.members),
-					body: faker.lorem.paragraph(4),
-					book: book,
-					club: club._id,
-					createdAt: faker.date.recent()
-				};
-			});
-			comments = comments.concat(bookComments).concat(readBookComments);
-		});
+		comments = comments.concat(bookComments);
 	});
 	comments.map(comment => new Comments(comment).save());
 	return Promise.all(comments);
